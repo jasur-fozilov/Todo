@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tasks - Todo App</title>
+    </head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+   
+
+    <body>
+    <div class="container">
+        <div class="card">
+        <div class="navbar bg-light justify-content-center"><h1>ToDo App</h1></div>
+        <form action="/AddTodoItem/" method="post">
+            {% csrf_token %}
+                <div class="input-group col-lg-4 my-4 ml-0">
+                    <input class="form-control" type="text" name="content">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">ADD</button>
+                    </div>
+                </div>
+        </form>
+        <div class="card mx-3 mb-4">
+            <div class="card-body center-block text-center pb-2 bg-warning">
+              <h4>My Tasks:</h4> 
+            </div>
+        </div>
+        {% for item in all_objects %}
+        <ul class="list-group mx-3 mb-3">
+            <li class="list-group-item">
+                        <div class="float-left"><p>{{item.content}}</p></div>
+                        <div class="float-right btn-group">
+                            <form action="{% url 'updateItem' item.id %}" method="post">
+                                {% csrf_token %}
+                                
+                                <input class="btn btn-info mr-2" type="submit" value="Update">
+                            </form>
+                            <form action="/DeleteTodoItem/{{item.pk}}/" method="post">
+                                {% csrf_token %}
+                                
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+        {% endfor %}
+    </div>
+</div>
+    </body>
+</html>

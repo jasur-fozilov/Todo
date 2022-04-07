@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tasks - Todo App</title>
+    </head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+   
+
+    <body>
+    <div class="container">
+        <div class="card">
+        <div class="navbar bg-light justify-content-center"><h1>ToDo App</h1></div>
+        <form action="/UpdateTodoItem/{{item.id}}/" method="post">
+            {% csrf_token %}
+                <div class="input-group col-lg-5 my-4">
+                    <input class="form-control" type="text" name="update" value="{{item.content}}">
+                    <div class="input-group-append">
+                        <button class="btn btn-info">Update</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+    </body>
+</html>
